@@ -69,11 +69,11 @@
           last? (= idx (dec (count pieces)))]
       (some identity (for [pt poss
                            :when (matches? clue cw pt)
-                           :let [nc (merge-clue clue cw pt)]]
-                       (if nc
-                         (if last?
-                           (decode nc quip)
-                           (attack quip pieces (inc idx) nc))))))))
+                           :let [nc (merge-clue clue cw pt)]
+                           :when nc]
+                       (if last?
+                         (decode nc quip)
+                         (attack quip pieces (inc idx) nc)))))))
 
 (defn solve
   "Find a set of words from the supplied word list that satifiy the quip pattern

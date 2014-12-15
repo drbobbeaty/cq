@@ -32,8 +32,10 @@
     {\g \f, \y \o, \l \d} "yg gyyl" "of food"))
 
 (deftest solve-test
-  (testing "a quip"
-    (is (= (time (solve "fict o ncc bivteclnbklzn o lcpji ukl pt vzglcddp"
-                        {\b \t}
-                        words))
-           "when i see thunderstorms i reach for an umbrella"))))
+  (let [cypher "fict o ncc bivteclnbklzn o lcpji ukl pt vzglcddp"
+        clue {\b \t}
+        ans "when i see thunderstorms i reach for an umbrella"
+        ptw words]
+    (testing "a quip"
+      (is (= (time (solve cypher clue ptw)) ans))
+      (is (= (time (solve cypher clue ptw)) ans)))))
