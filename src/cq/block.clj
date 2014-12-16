@@ -1,4 +1,7 @@
-(ns cq.block)
+(ns cq.block
+  "Namespace for the block attack that's fashioned after the Obj-C and
+  ruby versions."
+  (:require [cq.logging :refer [log-execution-time!]]))
 
 (def quip "fict o ncc bivteclnbklzn o lcpji ukl pt vzglcddp")
 
@@ -80,6 +83,8 @@
                          (decode nc quip)
                          (attack quip pieces (inc idx) nc)))))))
 
+(log-execution-time! attack {:msg-fn (fn [ret q p i c] (format "word: %s" i))})
+
 (defn solve
   "Find a set of words from the supplied word list that satifiy the quip pattern
   return the substituted words"
@@ -90,14 +95,4 @@
                      :possibles (filter #(possible? cw %) (get words (count cw))) }))]
     (attack quip pieces 0 clue)))
 
-;(time (solve "fict o ncc bivteclnbklzn o lcpji ukl pt vzglcddp"
-;             {\b \t}
-;             words))
-;
-;(time (solve "when i see thunderstorms i reach for an umbrella"
-;             {}
-;             words))
-;
-;(time (solve "potato onion carrot"
-;             {}
-;             words))
+(log-execution-time! solve)
