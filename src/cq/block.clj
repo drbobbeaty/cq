@@ -51,8 +51,8 @@
   (if (and (map? clue) (string? ct) (string? pt) (= (count ct) (count pt)))
     (let [known (set (vals clue))
           pairs (distinct (map vector ct pt))
-          bad? (fn [[cc pc]] (and (not= (get clue cc) pc)
-                                  (or (get clue cc) (known pc))))]
+          bad? (fn [[cc pc]] (let [tc (get clue cc)]
+                               (and (not= tc pc) (or tc (known pc)))))]
       (if-not (some bad? pairs)
         (into clue pairs)))))
 
