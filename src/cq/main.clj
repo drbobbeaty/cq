@@ -3,7 +3,9 @@
   but it's here to launch the different schemes of attaching the problem."
   (:require [clojure.tools.cli :refer [cli]]
             [clojure.tools.logging :refer [error info infof]]
-            [cq.block :as blk])
+            [cq.block :as blk]
+            [cq.server :refer [app]]
+            [ring.adapter.jetty :as jt])
   (:gen-class))
 
 (defn- error-msg
@@ -39,6 +41,10 @@
       (= "block" attack)
         (do
           (infof "solution: %s" (blk/solve cypher clue blk/words)))
+      (= "web" attack)
+        (do
+          (jt/run-jetty app { :port (:port params) })
+          )
       :else
         (do
           (info "Welcome to CryptoQuip!")

@@ -10,7 +10,25 @@ puzzle in as short a time as possible. There are other versions of this same
 attack, and there are several different attack schemes. This just happens to be
 the fastest we've found.
 
-## Usage
+## Web Server Usage
+
+At this time we have a limited web server in the `server` namespace, and it can
+handle a few requests. To start it, simply:
+```bash
+$ lein run web
+```
+and then hit: `localhost:8080/` and you'll see the _hello_ output.
+
+To see the benchmark code, hit:
+```
+GET localhost:8080/benchmark
+```
+and you'll see the cyphertext, the clue, and the plaintext. The log file has
+all the details about what's being called, etc.
+
+More endpoints to be added soon.
+
+## Command Line Usage
 
 Right now, there are tests that run a standard quip, and the `main` also runs
 a standard quip - directing the output to `log/cq.log` for debugging and
