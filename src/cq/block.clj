@@ -83,16 +83,18 @@
                          (decode nc quip)
                          (attack quip pieces (inc idx) nc)))))))
 
-(log-execution-time! attack {:msg-fn (fn [ret q p i c] (format "word: %s" i))})
+(log-execution-time! attack {:msg-fn (fn [ret q p i c] (format "word: %s hits: %s" i (:hits (nth p i))))})
 
 (defn solve
   "Find a set of words from the supplied word list that satifiy the quip pattern
   return the substituted words"
   [quip clue words]
   (let [pieces (sort-by #(count (:possibles %)) <
-                 (for [cw (vec (.split quip " "))]
+                 (for [cw (vec (distinct (.split quip " ")))
+                       :let [poss (filter #(possible? cw %) (get words (count cw)))]]
                    { :cyphertext cw
-                     :possibles (filter #(possible? cw %) (get words (count cw))) }))]
+                     :possibles poss
+                     :hits (count poss) }))]
     (attack quip pieces 0 clue)))
 
 (log-execution-time! solve)
