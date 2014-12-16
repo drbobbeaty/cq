@@ -25,10 +25,10 @@
   characters such that they could possibly match - given the right legend."
   [ct pt]
   (if (and (string? ct) (string? pt) (= (count ct) (count pt)))
-    (let [pc (count (distinct (map str ct pt)))
-          ctc (count (distinct ct))
+    (let [ctc (count (distinct ct))
           ptc (count (distinct pt))]
-      (= pc ctc ptc))
+      (if (= ctc ptc)
+        (= (count (distinct (map str ct pt))) ctc)))
     false))
 
 (defn matches?
@@ -66,6 +66,19 @@
           codex (fn [c] (if (is-alpha? c) (get clue c) c))]
       (apply str (map codex ct)))))
 
+(defn match-up
+  "Function to create a sequence of all the cypherwords and the possible matches
+  to it in a way that we can easily time this for performance tuning."
+  [quip]
+  (let [qw (vec (distinct (.split quip " ")))
+        go (fn [cw] (let [poss (filter #(possible? cw %) (get words (count cw)))]
+                      { :cyphertext cw
+                        :possibles poss
+                        :hits (count poss) }))]
+    (sort-by :hits < (pmap go qw))))
+
+(log-execution-time! match-up {:msg-fn (fn [ret q] (format "%s words filtered" (count ret)))})
+
 (defn attack
   "Function to do the block attack on the quip, broken down into a sequence
   of the cyphertext words, and their lists of possible plaintext words, as
@@ -89,12 +102,6 @@
   "Find a set of words from the supplied word list that satifiy the quip pattern
   return the substituted words"
   [quip clue words]
-  (let [pieces (sort-by #(count (:possibles %)) <
-                 (for [cw (vec (distinct (.split quip " ")))
-                       :let [poss (filter #(possible? cw %) (get words (count cw)))]]
-                   { :cyphertext cw
-                     :possibles poss
-                     :hits (count poss) }))]
-    (attack quip pieces 0 clue)))
+  (attack quip (match-up quip) 0 clue))
 
 (log-execution-time! solve)
