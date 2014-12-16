@@ -9,8 +9,13 @@
 (def uca (int \A))
 (def ucz (int \Z))
 
-(def words (->> (slurp "resources/words")
-                (.split #"\n")))
+(def words
+  "This is the map of all known plaintext words - organized by the length
+  of the word to speed up the matching process. The result is a map where
+  the key is the length, and the value is a sequence of words."
+  (->> (slurp "resources/words")
+       (.split #"\n")
+       (group-by count)))
 
 (defn possible?
   "Function to see if the cyphertext and plaintext have the same pattern of
@@ -82,7 +87,7 @@
   (let [pieces (sort-by #(count (:possibles %)) <
                  (for [cw (vec (.split quip " "))]
                    { :cyphertext cw
-                     :possibles (filter #(possible? cw %) words) }))]
+                     :possibles (filter #(possible? cw %) (get words (count cw))) }))]
     (attack quip pieces 0 clue)))
 
 ;(time (solve "fict o ncc bivteclnbklzn o lcpji ukl pt vzglcddp"
