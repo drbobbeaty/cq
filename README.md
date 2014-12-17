@@ -17,14 +17,31 @@ handle a few requests. To start it, simply:
 ```bash
 $ lein run web
 ```
-and then hit: `localhost:8080/` and you'll see the _hello_ output.
+and then hit: `localhost:8080/` and you'll see the _hello_ output:
+```json
+{
+  "app": "cryptoquip solver",
+  "code": "unknown commit",
+  "hello?": "World!"
+}
+```
+
+The goal is to have the _uberjars_ include the git hash, and then have this in
+the response. I've got the code for extracting it, I just need to work in the
+code for renaming the _uberjar_.
 
 To see the benchmark code, hit:
 ```
 GET localhost:8080/benchmark
 ```
-and you'll see the cyphertext, the clue, and the plaintext. The log file has
-all the details about what's being called, etc.
+and you'll see the cyphertext, the clue, and the plaintext:
+```json
+{
+  "clue": { "b": "t" },
+  "cyphertext": "fict o ncc bivteclnbklzn o lcpji ukl pt vzglcddp",
+  "plaintext": "when i see thunderstorms i reach for an umbrella"
+}```
+The log file has all the details about what's being called, etc.
 
 More endpoints to be added soon.
 
