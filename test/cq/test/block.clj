@@ -34,8 +34,7 @@
 (deftest solve-test
   (let [cypher "fict o ncc bivteclnbklzn o lcpji ukl pt vzglcddp"
         clue {\b \t}
-        ans "when i see thunderstorms i reach for an umbrella"
-        ptw words]
+        ans "when i see thunderstorms i reach for an umbrella"]
     (testing "a quip"
-      (is (= (time (solve cypher clue ptw)) ans))
-      (is (= (time (solve cypher clue ptw)) ans)))))
+      (is (= (time (solve cypher clue)) ans))
+      (is (= (time (solve cypher clue)) ans)))))

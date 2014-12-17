@@ -102,7 +102,7 @@
 (defn solve
   "Find a set of words from the supplied word list that satifiy the quip pattern
   return the substituted words"
-  [quip clue words]
+  [quip clue]
   (attack quip (match-up quip) 0 clue))
 
 (log-execution-time! solve)

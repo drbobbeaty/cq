@@ -82,7 +82,7 @@
   (GET "/benchmark" []
     (let [quip "fict o ncc bivteclnbklzn o lcpji ukl pt vzglcddp"
           clue {\b \t}
-          ans (blk/solve quip clue blk/words)]
+          ans (blk/solve quip clue)]
       (return-json {:cyphertext quip
                     :clue (into {} (for [[k v] clue] [(str k) (str v)]))
                     :plaintext ans})))
