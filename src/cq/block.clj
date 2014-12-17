@@ -89,7 +89,7 @@
   to it in a way that we can easily time this for performance tuning."
   [quip]
   (let [qw (vec (distinct (.split quip " ")))
-        go (fn [cw] (let [poss (filter #(possible? cw %) (get words (pattern cw)))]
+        go (fn [cw] (let [poss (get words (pattern cw))]
                       { :cyphertext cw
                         :possibles poss
                         :hits (count poss) }))]
