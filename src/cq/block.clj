@@ -22,12 +22,7 @@
       [0 1 2 2 3 4]
   "
   [word]
-  (loop [p [] d {} n 0 f (first word) r (rest word)]
-    (if f
-      (if (contains? d f)
-        (recur (conj p (d f)) d n (first r) (rest r))
-        (recur (conj p n) (assoc d f n) (inc n) (first r) (rest r)))
-      p)))
+  (mapv (into {} (map vector (distinct word) (range))) word))
 
 (def words
   "This is the map of all known plaintext words - organized by the length
