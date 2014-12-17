@@ -12,13 +12,30 @@
 (def uca (int \A))
 (def ucz (int \Z))
 
+(defn pattern
+  "Function to take a word (as a string) and return a vector that is the
+  pattern of that word where the values are the index of the character.
+
+    => (pattern \"see\")
+      [0 1 1]
+    => (pattern \"rabbit\")
+      [0 1 2 2 3 4]
+  "
+  [word]
+  (loop [p [] d {} n 0 f (first word) r (rest word)]
+    (if f
+      (if (contains? d f)
+        (recur (conj p (d f)) d n (first r) (rest r))
+        (recur (conj p n) (assoc d f n) (inc n) (first r) (rest r)))
+      p)))
+
 (def words
   "This is the map of all known plaintext words - organized by the length
   of the word to speed up the matching process. The result is a map where
   the key is the length, and the value is a sequence of words."
   (->> (slurp "resources/words")
        (.split #"\n")
-       (group-by count)))
+       (group-by pattern)))
 
 (defn possible?
   "Function to see if the cyphertext and plaintext have the same pattern of
@@ -72,7 +89,7 @@
   to it in a way that we can easily time this for performance tuning."
   [quip]
   (let [qw (vec (distinct (.split quip " ")))
-        go (fn [cw] (let [poss (filter #(possible? cw %) (get words (count cw)))]
+        go (fn [cw] (let [poss (filter #(possible? cw %) (get words (pattern cw)))]
                       { :cyphertext cw
                         :possibles poss
                         :hits (count poss) }))]
