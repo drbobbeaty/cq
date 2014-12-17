@@ -40,7 +40,8 @@ and you'll see the cyphertext, the clue, and the plaintext:
   "clue": { "b": "t" },
   "cyphertext": "fict o ncc bivteclnbklzn o lcpji ukl pt vzglcddp",
   "plaintext": "when i see thunderstorms i reach for an umbrella"
-}```
+}
+```
 The log file has all the details about what's being called, etc.
 
 More endpoints to be added soon.
