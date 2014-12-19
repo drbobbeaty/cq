@@ -17,13 +17,12 @@
   pattern of that word where the values are the index of the character.
 
     => (pattern \"see\")
-      [0 1 1]
+      (0 1 1)
     => (pattern \"rabbit\")
-      [0 1 2 2 3 4]
+      (0 1 2 2 4 5)
   "
   [word]
-  (let [dw (distinct word)]
-    (map #(.indexOf dw %) word)))
+  (map #(.indexOf word (int %)) word))
 
 (def words
   "This is the map of all known plaintext words - organized by the length
