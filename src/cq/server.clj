@@ -78,7 +78,7 @@
                   :code (or (git-commit) "unknown commit")}))
   (GET "/heartbeat" []
     (return-code 200))
-  ;; simple test for the default quip - jsut for testing
+  ;; simple test for the default quip - just for testing
   (GET "/benchmark" []
     (let [quip "fict o ncc bivteclnbklzn o lcpji ukl pt vzglcddp"
           clue {\b \t}
@@ -86,6 +86,19 @@
       (return-json {:cyphertext quip
                     :clue (into {} (for [[k v] clue] [(str k) (str v)]))
                     :plaintext ans})))
+  ;; let's get the quip and clue and generate an answer
+  (POST "/solve" [:as {body :body}]
+    (let [cfg (json/parse-string (slurp body))
+          quip (get cfg "cyphertext")
+          clue (into {} (for [[k v] (get cfg "clue")] [(first k) (first v)]))]
+      (infof "cfg: %s" cfg)
+      (infof "clue: %s" clue)
+      (infof "quip: %s" quip)
+      (if (and (string? quip) (map? clue))
+        (return-json {:cyphertext quip
+                      :clue (into {} (for [[k v] clue] [(str k) (str v)]))
+                      :plaintext (blk/solve quip clue)})
+        (return-code 400))))
   ;; housekeeping endpoints - what's running, what's active, etc.
   ; (GET "/queues" []
   ;      (return-json (queue-status)))
