@@ -88,12 +88,10 @@
                     :plaintext ans})))
   ;; let's get the quip and clue and generate an answer
   (POST "/solve" [:as {body :body}]
-    (let [cfg (json/parse-string (slurp body))
-          quip (get cfg "cyphertext")
-          clue (into {} (for [[k v] (get cfg "clue")] [(first k) (first v)]))]
-      (infof "cfg: %s" cfg)
-      (infof "clue: %s" clue)
-      (infof "quip: %s" quip)
+    (let [cfg (json/parse-string (slurp body) true)
+          quip (:cyphertext cfg)
+          clue (into {} (for [[k v] (:clue cfg)] [(first (name k)) (first v)]))]
+      (infof "got quip: |%s| w/clue: %s" quip clue)
       (if (and (string? quip) (map? clue))
         (return-json {:cyphertext quip
                       :clue (into {} (for [[k v] clue] [(str k) (str v)]))
