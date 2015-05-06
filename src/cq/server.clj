@@ -2,7 +2,8 @@
   "The routes for the web server."
   (:require [compojure
               [core :refer [defroutes GET POST]]
-              [handler :as handler]]
+              [handler :as handler]
+              [route :as route]]
             [clj-time.coerce :refer [to-long from-long]]
             [clj-time.core :refer [now]]
             [clojure.tools.logging :refer [infof warn warnf error errorf]]
@@ -10,6 +11,7 @@
             [cq.block :as blk]
             [ring.middleware.jsonp :refer [wrap-json-with-padding]]
             [ring.middleware.params :refer [wrap-params]]
+            [ring.util.response :as resp]
             [ring.util.io :refer [piped-input-stream]])
   (:import [java.io BufferedWriter OutputStreamWriter IOException]))
 
@@ -73,6 +75,8 @@
 (defroutes app-routes
   "Primary routes for the webserver."
   (GET "/" []
+    (resp/redirect "/index.html"))
+  (GET "/info" []
     (return-json {:app "cryptoquip solver",
                   :hello? "World!",
                   :code (or (git-commit) "unknown commit")}))
@@ -97,16 +101,9 @@
                       :clue (into {} (for [[k v] clue] [(str k) (str v)]))
                       :plaintext (blk/solve quip clue)})
         (return-code 400))))
-  ;; housekeeping endpoints - what's running, what's active, etc.
-  ; (GET "/queues" []
-  ;      (return-json (queue-status)))
-  ; (GET "/experiments" []
-  ;      (return-json (experiment-list)))
-  ;; experiment control endpoints - start, stop, reset
-  ; (POST "/experiments/:exp-name/reset" [exp-name]
-  ;      (return-json {:redis-says {:v1 (v1/wipe-experiment-data! exp-name)
-  ;                                 :v2 (v2/wipe-experiment-data! exp-name)}}))
-)
+  ;; Finish up with the static resources and the 404 page
+  (route/resources "/")
+  (route/not-found "<h1>Page not Found!</h1>"))
 
 (defn wrap-logging
   "Ring middleware to log requests and exceptions."

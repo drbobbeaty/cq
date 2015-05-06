@@ -46,6 +46,17 @@ The log file has all the details about what's being called, etc.
 
 More endpoints to be added soon.
 
+## Running the Solver from the Web
+
+We have added a simply jQuery/Bootstrap front-end to the solver so that it can be easily run by anyone simply going to `/` on the main site. It looks something like this:
+
+<center>
+  <img src="docs/img/home-page.jpg" width="500" height="273" border="0"
+    style="border-color:#ffffff;" />
+</center>
+
+You can simply enter your cyphertext, and then enter your key, and hit `Solve!`, and if there's a solution, it will be presented. Simple.
+
 ## Command Line Usage
 
 Right now, there are tests that run a standard quip, and the `main` also runs
