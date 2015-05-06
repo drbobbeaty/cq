@@ -6,7 +6,7 @@
 function solveThePuzzle() {
   console.log("attempting to solve the puzzle");
   // get what we need for the call...
-  var inp ={};
+  var inp = {};
   inp.cyphertext = $("#plaintext").val();
   inp.clue = {};
   inp.clue[$("#key1").val()] = $("#key2").val();
@@ -17,7 +17,6 @@ function solveThePuzzle() {
           contentType: 'application/json',
           data: JSON.stringify(inp),
           success: function(resp) {
-            console.log(resp);
             var cont = '<div class="alert alert-success" role="alert">';
             cont += '<strong>Solved:</strong> ' + resp.plaintext;
             cont += '</div>';
