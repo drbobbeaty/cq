@@ -48,7 +48,7 @@ More endpoints to be added soon.
 
 ## Running the Solver from the Web
 
-We have added a simply jQuery/Bootstrap front-end to the solver so that it can be easily run by anyone simply going to `localohst:8080` on the main site. It looks something like this:
+We have added a simply jQuery/Bootstrap front-end to the solver so that it can be easily run by anyone simply going to `localhost:8080` on the main site. It looks something like this:
 
 ![Running from the Web](https://bitbucket.org/babco/cq/raw/master/doc/img/home-page.jpg)
 
