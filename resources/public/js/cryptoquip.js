@@ -7,7 +7,7 @@ function solveThePuzzle() {
   console.log("attempting to solve the puzzle");
   // get what we need for the call...
   var inp = {};
-  inp.cyphertext = $("#plaintext").val();
+  inp.cyphertext = $("#cyphertext").val();
   inp.clue = {};
   inp.clue[$("#key1").val()] = $("#key2").val();
   // make the call to solve the puzzle
