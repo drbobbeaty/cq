@@ -17,7 +17,11 @@ handle a few requests. To start it, simply:
 ```bash
 $ lein run web
 ```
-and then hit: `localhost:8080/info` and you'll see the _hello_ output:
+and then hit:
+```
+GET localhost:8080/info
+```
+and you'll see the _hello_ output:
 ```json
 {
   "app": "cryptoquip solver",
