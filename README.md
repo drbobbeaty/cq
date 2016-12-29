@@ -54,7 +54,9 @@ More endpoints to be added soon.
 
 We have added a simply jQuery/Bootstrap front-end to the solver so that it can be easily run by anyone simply going to `localhost:8080/` on the main site. It looks something like this:
 
-![Running from the Web](https://bitbucket.org/babco/cq/raw/master/doc/img/home-page.jpg)
+<p align="center">
+  <img src="doc/img/home-page.jpg" width="500" height="309" border="0" />
+</p>
 
 You can simply enter your cyphertext, and then enter your key, and hit `Solve!`, and if there's a solution, it will be presented. Simple.
 
