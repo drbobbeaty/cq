@@ -39,9 +39,7 @@
   (if (and (string? ct) (string? pt) (= (count ct) (count pt)))
     (let [ctc (count (distinct ct))
           ptc (count (distinct pt))]
-      (if (= ctc ptc)
-        (= (count (distinct (map str ct pt))) ctc)
-        false))
+      (and (= ctc ptc) (= (count (distinct (map str ct pt))) ctc)))
     false))
 
 (defn matches?
