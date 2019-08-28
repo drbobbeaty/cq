@@ -32,16 +32,6 @@
        (.split #"\n")
        (group-by pattern)))
 
-(defn possible?
-  "Function to see if the cyphertext and plaintext have the same pattern of
-  characters such that they could possibly match - given the right legend."
-  [ct pt]
-  (if (and (string? ct) (string? pt) (= (count ct) (count pt)))
-    (let [ctc (count (distinct ct))
-          ptc (count (distinct pt))]
-      (and (= ctc ptc) (= (count (distinct (map str ct pt))) ctc)))
-    false))
-
 (defn matches?
   "Function to take the provided Legend and map the cyphertext into a
   plaintext string and then see if the resulting word COULD BE the plaintext.
@@ -50,8 +40,7 @@
   [clue ct pt]
   (if (and (map? clue) (string? ct) (string? pt) (= (count ct) (count pt)))
     (let [miss? (fn [cc pc] (let [pp (get clue cc)] (and pp (not= pp pc))))]
-      (not-any? identity (map miss? ct pt)))
-    false))
+      (not-any? identity (map miss? ct pt)))))
 
 (defn merge-clue
   "Function to attempt to merge the decoding implied in the cyphertext-to-plaintext
