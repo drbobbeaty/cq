@@ -10,6 +10,8 @@ puzzle in as short a time as possible. There are other versions of this same
 attack, and there are several different attack schemes. This just happens to be
 the fastest we've found.
 
+[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/drbobbeaty/cq) 
+
 ## Web Server Usage
 
 At this time we have a limited web server in the `server` namespace, and it can
