@@ -40,7 +40,7 @@
     (cond
       (= "block" attack)
         (do
-          (infof "solution: %s" (blk/solve cypher clue blk/words)))
+          (infof "solution: %s" (blk/solve cypher clue)))
       (= "web" attack)
         (do
           (jt/run-jetty app { :port (:port params) })
