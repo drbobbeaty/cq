@@ -16,14 +16,19 @@ the fastest we've found.
 
 At this time we have a limited web server in the `server` namespace, and it can
 handle a few requests. To start it, simply:
+
 ```bash
 $ lein run web
 ```
+
 and then hit:
+
 ```
 GET localhost:8080/info
 ```
+
 and you'll see the _hello_ output:
+
 ```json
 {
   "app": "cryptoquip solver",
@@ -37,10 +42,13 @@ the response. I've got the code for extracting it, I just need to work in the
 code for renaming the _uberjar_.
 
 To see the benchmark code, hit:
+
 ```
 GET localhost:8080/benchmark
 ```
+
 and you'll see the cyphertext, the clue, and the plaintext:
+
 ```json
 {
   "clue": { "b": "t" },
@@ -48,6 +56,7 @@ and you'll see the cyphertext, the clue, and the plaintext:
   "plaintext": "when i see thunderstorms i reach for an umbrella"
 }
 ```
+
 The log file has all the details about what's being called, etc.
 
 More endpoints to be added soon.
@@ -67,10 +76,13 @@ You can simply enter your cyphertext, and then enter your key, and hit `Solve!`,
 Right now, there are tests that run a standard quip, and the `main` also runs
 a standard quip - directing the output to `log/cq.log` for debugging and
 monitoring purposes. Simply:
+
 ```bash
 $ lein run block
 ```
+
 and then the log will have something like:
+
 ```bash
 [2014-12-16 08:26:07.973:main] INFO  cq.block - Finished attack [word: 5] in 0ms.
 [2014-12-16 08:26:07.973:main] INFO  cq.block - Finished attack [word: 4] in 2ms.
